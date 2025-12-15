@@ -5,6 +5,7 @@ const Todo = () => {
   const [task, setTask] = useState("");
   const [editing, setEditing] = useState(null);
   const handleAddorUpdate = (e) => {
+    if(task.trim()==="")return
     e.preventDefault();
     if(editing!==null){
       const updateTodo = [...todo];
