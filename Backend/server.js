@@ -1,12 +1,14 @@
 const express = require("express");
 const connectDb = require("./config/db")
 const todo = require("./models/todo")
+const dotenv = require("dotenv")
 const cors = require("cors")
+dotenv.config();
 connectDb();
 const app = express();
 app.use(express.json())
 app.use(cors())
-const PORT = 3000
+const PORT = process.env.PORT
 app.get("/",async(req,res)=>{
    try{
     const data = await todo.find();
