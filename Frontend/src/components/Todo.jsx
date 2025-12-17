@@ -5,9 +5,9 @@ const Todo = () => {
   const [todo, setTodo] = useState([]);
   const [task, setTask] = useState("");
   const [editing, setEditing] = useState(null);
-
+  const API ="https://kprcas-mern-b1-backend.onrender.com"
   const fetchTodo = async()=>{
-    const res = await axios.get("https://kprcas-mern-b1-backend.onrender.com")
+    const res = await axios.get(`${API}`)
     setTodo(res.data);
   }
   useEffect(()=>{
@@ -17,11 +17,11 @@ const Todo = () => {
     if(task.trim()==="")return
     e.preventDefault();
     if(editing!==null){
-      await axios.put(`https://kprcas-mern-b1-backend.onrender.com/update/${editing}`,{task:task})
+      await axios.put(`${API}/update/${editing}`,{task:task})
       setEditing(null);
     }
     else{
-      await axios.post(`https://kprcas-mern-b1-backend.onrender.com/create`,{task:task})
+      await axios.post(`${API}/create`,{task:task})
     }
     setTask("")
     fetchTodo();
@@ -31,11 +31,11 @@ const Todo = () => {
     setEditing(todos._id)
   };
   const handleDelete = async(id) => {
-    await axios.delete(`https://kprcas-mern-b1-backend.onrender.com/delete/${id}`)
+    await axios.delete(`${API}/delete/${id}`)
     fetchTodo()
   };
   const handleToggleComplete = async(todos) => {
-    await axios.put(`https://kprcas-mern-b1-backend.onrender.com/update/${todos._id}`,{completed:!todos.completed})
+    await axios.put(`${API}/update/${todos._id}`,{completed:!todos.completed})
     fetchTodo()
   };
   return (
